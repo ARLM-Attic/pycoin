@@ -14,12 +14,11 @@ byte2int(bs):
     turn bs[0] into an int (0-255)
 """
 
-import functools
-import itertools
-import operator
-import struct
 
 if bytes == str:
+    import functools
+    import itertools
+
     iterbytes = functools.partial(itertools.imap, ord)
 
     def indexbytes(buf, i):
@@ -29,7 +28,19 @@ if bytes == str:
     def byte2int(bs):
         return ord(bs[0])
 else:
+    import struct
+
+    try:
+        import operator
+
+        indexbytes = operator.getitem
+        byte2int = operator.itemgetter(0)
+
+    except ImportError:
+
+        # micropython
+        indexbytes = lambda buf, i: buf[i]
+        byte2int = lambda bs: bs[0]
+
     iterbytes = iter
-    indexbytes = operator.getitem
     int2byte = struct.Struct(">B").pack
-    byte2int = operator.itemgetter(0)
