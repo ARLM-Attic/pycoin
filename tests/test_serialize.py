@@ -12,7 +12,7 @@ class SerializeTest(unittest.TestCase):
         b = b"\x00\x01\x02"
         self.assertEqual(h2b(h), b)
         self.assertEqual(b2h(b), h)
-        self.assertEqual(h2b_rev(h), b[::-1])
+        self.assertEqual(h2b_rev(h), b'\x02\x01\x00')
         self.assertEqual(b2h_rev(b), "020100")
 
 

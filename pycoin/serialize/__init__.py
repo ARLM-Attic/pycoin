@@ -12,7 +12,7 @@ def h2b(h):
 
 
 def h2b_rev(h):
-    return binascii.unhexlify(h.encode("utf8"))[::-1]
+    return bytes(reversed(binascii.unhexlify(h.encode("utf8"))))
 
 
 def b2h(the_bytes):
