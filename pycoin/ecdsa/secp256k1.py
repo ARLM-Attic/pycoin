@@ -1,6 +1,14 @@
 from .Generator import Generator
-from .native.openssl import OpenSSLOptimizations
-from .native.secp256k1 import LibSECP256K1Optimizations
+
+try:
+    from .native.openssl import OpenSSLOptimizations
+except ImportError:
+    class OpenSSLOptimizations: pass
+
+try:
+    from .native.secp256k1 import LibSECP256K1Optimizations
+except ImportError:
+    class LibSECP256K1Optimizations: pass
 
 # from http://www.secg.org/sec2-v2.pdf
 
