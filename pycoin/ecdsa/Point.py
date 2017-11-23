@@ -3,18 +3,26 @@ class NoSuchPointError(ValueError):
     pass
 
 
-class Point(tuple):
+class Point:
     """
-    A point on an elliptic curve. This is a subclass of tuple (forced to a 2-tuple),
+    A point on an elliptic curve. This a 2-tuple (x, y)
     and also includes a reference to the underlying Curve.
     """
-    def __new__(self, x, y, curve):
-        return tuple.__new__(self, (x, y))
 
     def __init__(self, x, y, curve):
+        self._x, self._y = x, y
         self._curve = curve
-        super(Point, self).__init__()
         self.check_on_curve()
+
+    def __eq__(self, other):
+        return (self._x, self._y) == other
+
+    def __repr__(self):
+        return '(%r, %r)' % (self._x, self._y)
+
+    def __iter__(self):
+        yield self._x
+        yield self._y
 
     def check_on_curve(self):
         """raise NoSuchPointError (which is a ValueError) if the point is not actually on the curve."""

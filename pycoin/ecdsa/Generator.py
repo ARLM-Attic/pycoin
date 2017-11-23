@@ -9,9 +9,6 @@ from .rfc6979 import deterministic_generate_k
 
 
 class Generator(Curve, Point):
-    def __new__(self, p, a, b, basis, order):
-        # since Generator extends tuple (via Point), we need to override __new__
-        return tuple.__new__(self, basis)
 
     def __init__(self, p, a, b, basis, order, entropy_f=os.urandom):
         """
