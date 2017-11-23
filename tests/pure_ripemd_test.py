@@ -15,7 +15,7 @@ class RipemdTest(unittest.TestCase):
             # GAE and micropython may not have it native
             return
 
-        for msg in ('', 'abc', 'sdfdlfjskljsdfjfkldsjklfdsjkfldsljkdfs'):
+        for msg in (b'', b'abc', b'sdfdlfjskljsdfjfkldsjklfdsjkfldsljkdfs'):
             lib = hashlib.new('ripemd160', msg)
             assert ripemd160(msg).digest() == lib.digest()
 
