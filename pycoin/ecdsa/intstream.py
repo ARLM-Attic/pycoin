@@ -2,19 +2,29 @@
 from pycoin.intbytes import iterbytes, byte2int
 
 
-def _to_bytes(v, length, byteorder="big"):
-    """For python 3, which has a native implementation of this function."""
-    return v.to_bytes(length, byteorder=byteorder)
-
-
-def _from_bytes(bytes, byteorder="big", signed=False):
-    """For python 3, which has a native implementation of this function."""
-    return int.from_bytes(bytes, byteorder=byteorder, signed=signed)
-
-
 if hasattr(int, "to_bytes"):
-    to_bytes = _to_bytes
-    from_bytes = _from_bytes
+    if not hasattr(int.to_bytes, '__doc__'):
+        # micropython has trimed version of int.to/from_bytes without kw args
+
+        def to_bytes(v, length, byteorder="big"):
+            return v.to_bytes(length, byteorder)
+
+        def from_bytes(bytes, byteorder="big", signed=False):
+            assert signed == False
+            return int.from_bytes(bytes, byteorder)
+
+    else:
+        # normal python3
+
+        def to_bytes(v, length, byteorder="big"):
+            """For python 3, which has a native implementation of this function."""
+            return v.to_bytes(length, byteorder=byteorder)
+
+
+        def from_bytes(bytes, byteorder="big", signed=False):
+            """For python 3, which has a native implementation of this function."""
+            return int.from_bytes(bytes, byteorder=byteorder, signed=signed)
+        
 else:
     def to_bytes(v, length, byteorder="big"):
         "See int.to_bytes in python 3"
