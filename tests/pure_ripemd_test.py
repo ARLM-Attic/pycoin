@@ -11,8 +11,8 @@ class RipemdTest(unittest.TestCase):
     def test_ripemd_vs_stdlib(self):
         try:
             hashlib.new('ripemd160')
-        except ValueError:
-            # GAE and micropython may not have it native
+        except:
+            # GAE and micropython may not have native code
             return
 
         for msg in (b'', b'abc', b'sdfdlfjskljsdfjfkldsjklfdsjkfldsljkdfs'):
