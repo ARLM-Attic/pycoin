@@ -56,7 +56,7 @@ except Exception:
         #   version: "latest"
         # to the "libraries" section of your app.yaml
         from Crypto.Hash.RIPEMD import RIPEMD160Hash as ripemd160
-    except ImportException:
+    except ImportError:
         # we are now carrying a pure-python version as well
         from .contrib.ripemd import new as ripemd160
 
@@ -108,10 +108,10 @@ def from_long(v, prefix, base, charset):
 
 if hasattr(int, "to_bytes"):
     def to_bytes_32(v):
-        return v.to_bytes(32, byteorder="big")
+        return v.to_bytes(32, "big")
 
     def from_bytes_32(v):
-        return int.from_bytes(v, byteorder="big")
+        return int.from_bytes(v, "big")
 else:
     def to_bytes_32(v):
         v = from_long(v, 0, 256, lambda x: x)
