@@ -37,23 +37,13 @@
 ## * ftp://ftp.rsasecurity.com/pub/cryptobytes/crypto3n2.pdf
 ## */
 
-try:
-    import psyco
-    psyco.full()
-except ImportError:
-    pass
-
 import sys
+import struct
 
-is_python2 = sys.version_info.major == 2
+is_python2 = (sys.version_info < (3,0,0))
 #block_size = 1
 digest_size = 20
 digestsize = 20
-
-try:
-    range = xrange
-except:
-    pass
 
 class RIPEMD160:
     """Return a new RIPEMD160 object. An optional string argument
@@ -85,7 +75,7 @@ class RIPEMD160:
         dig = self.digest()
         hex_digest = ''
         for d in dig:
-            if (is_python2):
+            if is_python2:
                 hex_digest += '%02x' % ord(d)
             else:
                 hex_digest += '%02x' % d
@@ -159,9 +149,6 @@ def R(a, b, c, d, e, Fj, Kj, sj, rj, X):
     return a % 0x100000000, c
 
 PADDING = [0x80] + [0]*63
-
-import sys
-import struct
 
 def RMD160Transform(state, block): #uint32 state[5], uchar block[64]
     x = [0]*16
@@ -369,8 +356,6 @@ def RMD160Transform(state, block): #uint32 state[5], uchar block[64]
     state[4] = (state[0] + bb + c) % 0x100000000;
     state[0] = t % 0x100000000;
 
-    pass
-
 
 def RMD160Update(ctx, inp, inplen):
     if type(inp) == str:
@@ -406,9 +391,10 @@ def RMD160Final(ctx):
     return struct.pack("<5L", *ctx.state)
 
 
-assert '37f332f68db77bd9d7edd4969571ad671cf9dd3b' == \
-       new('The quick brown fox jumps over the lazy dog').hexdigest()
-assert '132072df690933835eb8b6ad0b77e7b6f14acad7' == \
-       new('The quick brown fox jumps over the lazy cog').hexdigest()
-assert '9c1185a5c5e9fc54612808977ee8f548b2258d31' == \
-       new('').hexdigest()
+def test_ripemd():
+    assert '37f332f68db77bd9d7edd4969571ad671cf9dd3b' == \
+           new('The quick brown fox jumps over the lazy dog').hexdigest()
+    assert '132072df690933835eb8b6ad0b77e7b6f14acad7' == \
+           new('The quick brown fox jumps over the lazy cog').hexdigest()
+    assert '9c1185a5c5e9fc54612808977ee8f548b2258d31' == \
+           new('').hexdigest()
