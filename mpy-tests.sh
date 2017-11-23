@@ -21,13 +21,15 @@ $MPY tests/chainfinder_test.py
 # slow... but correct (keep last)
 #$MPY tests/ecdsa/ecdsa_test.py
 
+# not useful w/o operating system and shell and network, etc.
+#$MPY tests/cmds/block_test.py
+#$MPY tests/cmds/cmdline_test.py
+#$MPY tests/cmds/ToolTest.py
+#$MPY tests/cmds/tx_test.py
+
 $MPY tests/bip32_test.py
 $MPY tests/blockchain_test.py
 $MPY tests/build_tx_test.py
-$MPY tests/cmds/block_test.py
-$MPY tests/cmds/cmdline_test.py
-$MPY tests/cmds/ToolTest.py
-$MPY tests/cmds/tx_test.py
 $MPY tests/electrum_test.py
 $MPY tests/key_test.py
 $MPY tests/key_translation_test.py
