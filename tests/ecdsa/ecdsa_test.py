@@ -131,7 +131,6 @@ class ECDSATestCase(unittest.TestCase):
         The example in https://tools.ietf.org/html/rfc6979#appendix-A.2.3
         """
         hashes_values = (
-            (hashlib.sha1, 0x37D7CA00D2C7B0E5E412AC03BD44BA837FDD5B28CD3B0021),
             (hashlib.sha224, 0x4381526B3FC1E7128F202E194505592F01D5FF4C5AF015D8),
             (hashlib.sha256, 0x32B1B6D7D42A05CB449065727A84804FB1A3E34D8F261496),
             (hashlib.sha384, 0x4730005C4FCB01834C063A7B6760096DBE284B8252EF4311),
@@ -145,7 +144,6 @@ class ECDSATestCase(unittest.TestCase):
             self.assertEqual(k, v)
 
         hashes_values = (
-            (hashlib.sha1, 0xD9CF9C3D3297D3260773A1DA7418DB5537AB8DD93DE7FA25),
             (hashlib.sha224, 0xF5DC805F76EF851800700CCE82E7B98D8911B7D510059FBE),
             (hashlib.sha256, 0x5C4CE89CF56D9E7C77C8585339B006B97B5F0680B4306C6C),
             (hashlib.sha384, 0x5AFEFB5D3393261B828DB6C91FBC68C230727B030C975693),
