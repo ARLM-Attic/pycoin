@@ -109,3 +109,6 @@ class GeneratorTestCase(unittest.TestCase):
             raise FailedTest("u1 * p192 + u2 * Q came out wrong.")
         else:
             print("u1 * p192 + u2 * Q came out right.")
+
+if __name__ == '__main__':
+    unittest.main()
