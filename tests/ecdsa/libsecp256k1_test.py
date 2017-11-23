@@ -1,11 +1,15 @@
 import hashlib
 import unittest
 
-from ctypes import cdll, byref, c_int, c_uint, c_char_p, c_void_p, c_size_t, create_string_buffer
+try:
+    from ctypes import cdll, byref, c_int, c_uint, c_char_p, c_void_p, c_size_t, create_string_buffer
+    from pycoin.ecdsa.native.secp256k1 import libsecp256k1, SECP256K1_EC_UNCOMPRESSED
+except ImportError:
+    # above is missing on micropython
+    libsecp256k1 = None
 
 from pycoin.ecdsa.secp256k1 import secp256k1_generator
 from pycoin.ecdsa.intstream import to_bytes, from_bytes
-from pycoin.ecdsa.native.secp256k1 import libsecp256k1, SECP256K1_EC_UNCOMPRESSED
 from pycoin.ecdsa.rfc6979 import deterministic_generate_k
 from pycoin.encoding import from_bytes_32, to_bytes_32
 from pycoin.intbytes import int2byte, byte2int
