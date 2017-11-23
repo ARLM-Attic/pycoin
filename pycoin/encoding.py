@@ -101,9 +101,9 @@ def from_long(v, prefix, base, charset):
             l.append(charset(mod))
         except Exception:
             raise EncodingError("can't convert to character corresponding to %d" % mod)
-    l.extend([charset(0)] * prefix)
-    l.reverse()
-    return bytes(l)
+    if prefix:
+        l.extend(charset(0) * prefix)
+    return bytes(reversed(l))
 
 
 if hasattr(int, "to_bytes"):
