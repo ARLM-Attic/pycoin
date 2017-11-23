@@ -15,10 +15,15 @@ class Point:
         self.check_on_curve()
 
     def __eq__(self, other):
-        return (self._x, self._y) == other
+        return (self._x == other[0]) and (self._y == other[1])
 
     def __repr__(self):
         return '(%r, %r)' % (self._x, self._y)
+
+    def __getitem__(self, n):
+        if n == 0: return self._x
+        if n == 1: return self._y
+        raise IndexError(n)
 
     def __iter__(self):
         yield self._x
